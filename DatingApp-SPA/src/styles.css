@@ -5,4 +5,8 @@
 @import '../node_modules/alertifyjs/build/css/alertify.min.css';
 @import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
 
+.mt-80{
+    margin-top: 80px;
+}
+
 
