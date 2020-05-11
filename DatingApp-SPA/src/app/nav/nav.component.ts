@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class NavComponent implements OnInit {
 model: any = {};
 usernameLogged = '';
+currUserPhotoUrl = '';
 
 
   constructor(private authService: AuthService,
@@ -19,7 +20,12 @@ usernameLogged = '';
 
   ngOnInit() {
     this.usernameLogged = this.authService.decodedToken ? this.authService.decodedToken.unique_name : 'nadie logueado';
-    console.log(this.usernameLogged);
+    this.authService.currentPhotoUrl
+        .subscribe(currUserPhotoUrl => 
+          this.currUserPhotoUrl = currUserPhotoUrl);
+
+    console.log('oninit ', this.authService.decodedToken);
+    console.log('oninit 2 ', this.authService.currentUser);
   }
 
   login(){
@@ -27,6 +33,7 @@ usernameLogged = '';
       .subscribe(response => {
         this.alertifyService.success('Login successfully!');
         this.usernameLogged = this.authService.decodedToken.unique_name;
+        this.currUserPhotoUrl = this.authService.currentUser.photoUrl;
       }, error => {
         this.alertifyService.error(error);
       },() => {
@@ -40,6 +47,11 @@ usernameLogged = '';
 
   logout(){
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    this.authService.decodedToken = null;
+    this.authService.currentUser = null;
+
     this.alertifyService.message('logged out successfully');
     this.router.navigate(['/home']);
   }

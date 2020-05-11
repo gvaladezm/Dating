@@ -16,7 +16,10 @@
     </ul>
 
     <div *ngIf="loggedIn()" class="dropdown ml-auto" dropdown>
-      <button class="btn btn-dark dropdown-toggle" data-toggle="dropdown" dropdownToggle>
+      <span>
+        <img [src]="currUserPhotoUrl" >
+      </span>
+      <button class="ml-1 btn btn-dark dropdown-toggle" data-toggle="dropdown" dropdownToggle>
         Welcome {{ usernameLogged }}
       </button>
       <div class="dropdown-menu" *dropdownMenu>

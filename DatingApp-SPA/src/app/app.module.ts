@@ -26,6 +26,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 
 //Error handler
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
@@ -46,10 +47,12 @@ import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 
 //Pipes
 import { DateAgoPipe } from './_pipes/date-ago.pipe';
+import { FileUploadModule } from 'ng2-file-upload';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
  }
+
 
 @NgModule({
    declarations: [
@@ -63,7 +66,8 @@ export function tokenGetter() {
       MemberCardComponent,
       MemberDetailComponent,
       MemberEditComponent,
-      DateAgoPipe
+      DateAgoPipe,
+      PhotoEditorComponent
    ],
    imports: [
       BrowserModule,
@@ -74,14 +78,15 @@ export function tokenGetter() {
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),
       RouterModule.forRoot(appRoutes),
-      NgxGalleryModule,      
+      NgxGalleryModule,
       JwtModule.forRoot({
          config: {
             tokenGetter,
             whitelistedDomains: ['localhost:5000'],
             blacklistedRoutes: ['localhost:5000/auth']
          }
-      })
+      }),
+      FileUploadModule
    ],
    providers: [
       AuthService,
