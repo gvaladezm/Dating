@@ -19,10 +19,14 @@ baseUrl = `${environment.apiUrl}auth/`;
 jwtHelper = new JwtHelperService();
 decodedToken: any;
 currentUser: User;
-photoUrl = new BehaviorSubject<string>('../../assets/user.jpg');
+photoUrl = new BehaviorSubject<string>('../../../assets/user.jpg');
 currentPhotoUrl = this.photoUrl.asObservable();
 
 changeMemberPhoto (photoUrl: string){
+  if (!photoUrl){
+    return;
+  }
+
   this.photoUrl.next(photoUrl);
 }
 
@@ -45,7 +49,7 @@ login(model: any){
     );
 }
 
-register (model: any){
+register (model: User){
   return this.http.post(this.baseUrl + 'register', model);
 }
 
