@@ -23,22 +23,7 @@ namespace DatingApp.API.Data
             if( !VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return null;
 
-            UpdateLastActivity(username);
-
             return user;
-        }
-
-        private async void UpdateLastActivity(string username)
-        {
-             var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
-
-            if(user == null)
-                return;
-            
-            user.LastActive = DateTime.Now;
-
-            await _context.SaveChangesAsync();
-            
         }
 
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
